@@ -26,8 +26,18 @@ test.before(async () => {
 });
 
 test.after(async () => {
-  await mongoose.disconnect();
-  await mongoServer.stop();
+  try {
+    await mongoose.disconnect();
+  } catch (err) {
+    // ignore disconnect error during shutdown
+  }
+  if (mongoServer) {
+    try {
+      await mongoServer.stop();
+    } catch (err) {
+      // ignore stop error during shutdown
+    }
+  }
 });
 
 test('1. Security: Public signup enforces userType "ordinary" and ignores "admin" escalation', async () => {
