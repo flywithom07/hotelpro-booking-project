@@ -1,0 +1,24 @@
+{
+  "name": "hotelpro-workspace",
+  "version": "1.0.0",
+  "description": "HotelPro - Full-Stack Luxury Hotel Booking and Management System",
+  "scripts": {
+    "server": "cd Server && npm run dev",
+    "server:start": "cd Server && npm start",
+    "client": "cd Client && npm run dev",
+    "client:build": "cd Client && npm run build",
+    "test:server": "cd Server && npm test",
+    "seed": "cd Server && npm run seed"
+  },
+  "keywords": [
+    "hotel",
+    "booking",
+    "management",
+    "react",
+    "express",
+    "mongodb",
+    "vite"
+  ],
+  "author": "HotelPro Engineering Team",
+  "license": "ISC"
+}
