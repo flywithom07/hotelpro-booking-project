@@ -1,4 +1,7 @@
-require('dotenv').config();
+const path = require('path');
+const fs = require('fs');
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
+
 const express = require('express');
 const cors = require('cors');
 const { connectDB } = require('./config/db');
@@ -10,8 +13,6 @@ const authRoutes = require('./routes/authRoutes');
 const roomRoutes = require('./routes/roomRoutes');
 const bookingRoutes = require('./routes/bookingRoutes');
 const adminRoutes = require('./routes/adminRoutes');
-const path = require('path');
-const fs = require('fs');
 
 const app = express();
 
@@ -101,7 +102,12 @@ const startServer = async () => {
     });
     return server;
   } catch (error) {
-    console.error('[Server Error] Failed to start server:', error.message);
+    const safeError = (error.message || '').replace(
+      /mongodb(\+srv)?:\/\/[^@\s]+@/gi,
+      'mongodb$1://<credentials-hidden>@'
+    );
+    console.error('\n[Server Error] Server aborted: Database connection could not be established.');
+    console.error(`[Server Error] Reason: ${safeError}\n`);
     process.exit(1);
   }
 };
