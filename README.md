@@ -121,11 +121,11 @@ The Vite development server proxies `/api` requests to `http://localhost:5000`. 
 
 ---
 
-### Deploy the API to Render
+### Deploy to Render
 
-The root `render.yaml` configures the backend service to use `Server` as its root directory, install the backend dependencies, start with `npm start`, and check `/api/health`. Deploy it as a Render Blueprint and provide `MONGODB_URI` and `CLIENT_URL` when prompted; Render generates `JWT_SECRET`.
+The root `render.yaml` configures one Render Web Service for both the frontend and backend. Deploy it as a Render Blueprint; it builds the client, starts the backend, and checks `/api/health`. Provide your MongoDB Atlas connection string for `MONGODB_URI`; Render generates `JWT_SECRET`. The frontend and API share one URL, so the default `/api` client URL works without additional configuration.
 
-For an existing Render Web Service that is not managed by the Blueprint, set **Root Directory** to `Server`, **Build Command** to `npm ci`, **Start Command** to `npm start`, and **Health Check Path** to `/api/health`. Set `MONGODB_URI`, `JWT_SECRET`, `NODE_ENV=production`, and `CLIENT_URL` in the service's environment variables. Do not use `node src/server.js` from the repository root; the server entry file is `Server/src/server.js`.
+For an existing Render Web Service that is not managed by the Blueprint, leave **Root Directory** blank, set **Build Command** to `npm ci --prefix Server && npm ci --prefix Client && npm run build`, **Start Command** to `npm start`, and **Health Check Path** to `/api/health`. Set `MONGODB_URI`, `JWT_SECRET`, and `NODE_ENV=production` in the service's environment variables. Do not use `node src/server.js` from the repository root; the server entry file is `Server/src/server.js`.
 
 ---
 

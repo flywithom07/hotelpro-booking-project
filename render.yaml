@@ -1,9 +1,8 @@
 services:
   - type: web
-    name: hotelpro-api
+    name: hotelpro
     runtime: node
-    rootDir: Server
-    buildCommand: npm ci
+    buildCommand: npm ci --prefix Server && npm ci --prefix Client && npm run build
     startCommand: npm start
     healthCheckPath: /api/health
     envVars:
@@ -13,5 +12,3 @@ services:
         sync: false
       - key: JWT_SECRET
         generateValue: true
-      - key: CLIENT_URL
-        sync: false
