@@ -35,7 +35,7 @@ const connectDB = async () => {
   // If in-memory is explicitly requested for testing:
   if (isExplicitMemoryDB) {
     if (!process.env.MONGOMS_DOWNLOAD_DIR) {
-      process.env.MONGOMS_DOWNLOAD_DIR = path.resolve('D:/.mongo-binaries');
+      process.env.MONGOMS_DOWNLOAD_DIR = path.resolve(__dirname, '../../../.mongo-binaries');
     }
     const { MongoMemoryServer } = require('mongodb-memory-server');
     memoryServer = await MongoMemoryServer.create({

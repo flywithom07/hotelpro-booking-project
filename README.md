@@ -63,7 +63,7 @@ MongoDB (Database with Compound Indexes)
 
 ### Prerequisites
 - **Node.js**: v18.0.0 or higher (v20+ recommended)
-- **MongoDB**: Either a local MongoDB instance (`mongodb://localhost:27017/hotelpro`), a MongoDB Atlas connection string, or rely on the built-in zero-config in-memory fallback.
+- **MongoDB**: A local MongoDB instance (`mongodb://localhost:27017/hotelpro`) or a MongoDB Atlas database.
 
 ---
 
@@ -83,7 +83,7 @@ npm install
 
 ### Step 2: Environment Configuration
 
-The backend is configured via `Server/.env`. A default configuration is pre-created:
+Copy `Server/.env.example` to `Server/.env`, then set the values for your environment. The example uses a local MongoDB instance:
 
 ```env
 PORT=5000
@@ -94,7 +94,9 @@ CLIENT_URL=http://localhost:5173
 NODE_ENV=development
 ```
 
-> **Zero-Config Database Support**: If a local MongoDB service is not currently active on port 27017, the server will automatically launch an in-memory MongoDB daemon in development mode and auto-seed sample rooms and accounts!
+The server requires MongoDB to be running at the configured URI. It automatically seeds sample rooms and demo accounts when the database is empty.
+
+For MongoDB Atlas, replace `MONGODB_URI` with your Atlas connection string and allow the server's IP address in Atlas Network Access.
 
 ---
 
@@ -114,6 +116,8 @@ cd Client
 npm run dev
 # Frontend runs at http://localhost:5173
 ```
+
+The Vite development server proxies `/api` requests to `http://localhost:5000`. For a deployed frontend and backend on separate domains, set the frontend build variable `VITE_API_BASE_URL` to the backend API URL (for example, `https://api.example.com/api`) and set the backend `CLIENT_URL` to the frontend origin (for example, `https://hotel.example.com`).
 
 ---
 

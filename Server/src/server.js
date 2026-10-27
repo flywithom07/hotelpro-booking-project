@@ -18,14 +18,18 @@ const app = express();
 
 // Middleware
 const allowedOrigin = process.env.CLIENT_URL || 'http://localhost:5173';
+const isDevelopment = process.env.NODE_ENV !== 'production';
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow requests with no origin (like mobile apps, curl, or Postman) or matching origin
-      if (!origin || origin === allowedOrigin || origin.startsWith('http://localhost:')) {
+      if (
+        !origin ||
+        origin === allowedOrigin ||
+        (isDevelopment && origin.startsWith('http://localhost:'))
+      ) {
         return callback(null, true);
       }
-      return callback(null, true); // Dev convenience
+      return callback(null, false);
     },
     credentials: true,
   })

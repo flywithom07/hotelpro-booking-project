@@ -1,5 +1,6 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
+const path = require('path');
 const request = require('supertest');
 const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
@@ -15,7 +16,7 @@ let customer2Token;
 let testRoomId;
 let testBookingId;
 
-process.env.MONGOMS_DOWNLOAD_DIR = 'D:/.mongo-binaries';
+process.env.MONGOMS_DOWNLOAD_DIR = path.resolve(__dirname, '../../../.mongo-binaries');
 
 test.before(async () => {
   mongoServer = await MongoMemoryServer.create({
