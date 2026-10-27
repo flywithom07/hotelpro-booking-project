@@ -2,6 +2,7 @@ services:
   - type: web
     name: hotelpro
     runtime: node
+    plan: free
     buildCommand: npm ci --prefix Server && npm ci --prefix Client && npm run build
     startCommand: npm start
     healthCheckPath: /api/health
